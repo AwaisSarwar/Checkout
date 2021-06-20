@@ -27,5 +27,30 @@ namespace CheckoutLibraryTests
             act.Should().Throw<UnknownItemException>().WithMessage(CheckoutConstants.InvalidItemMessage);
             itemsRepository.Verify();
         }
+
+        [TestMethod]
+        public void Scan_When_AValidItemIsScanned_Then_ItemIsAddedForCheckout()
+        {
+            var itemsRepository = new Mock<IItemsRepository>();
+            var itemValidator = new ItemValidator(itemsRepository.Object);
+            var checkout = new Checkout(itemValidator);
+            var item = new Item
+            {
+                Sku = "ValidItem",
+                UnitPrice = 1.0M,
+                SpecialPrice = "3 for 2"
+            };
+
+            itemsRepository.Setup(_ => _.GetItemBySKU("ValidItem")).Returns(item).Verifiable();
+
+            checkout.Scan("ValidItem");
+
+            checkout.BasketItems.Should().NotBeEmpty();
+            checkout.BasketItems[0].Sku.Should().Be(item.Sku);
+            checkout.BasketItems[0].UnitPrice.Should().Be(item.UnitPrice);
+            checkout.BasketItems[0].SpecialPrice.Should().Be(item.SpecialPrice);
+            checkout.BasketItems[0].Qty.Should().Be(1);
+            itemsRepository.Verify();
+        }
     }
 }
