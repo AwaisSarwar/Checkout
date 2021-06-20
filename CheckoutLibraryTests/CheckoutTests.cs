@@ -87,5 +87,17 @@ namespace CheckoutLibraryTests
             checkout.BasketItems[0].Qty.Should().Be(2);
             itemsRepository.Verify();
         }
+
+        [TestMethod]
+        public void GetTotalPrice_WhenTheresNoBasketItem_Then_ZeroIsReturned()
+        {
+            var itemsRepository = new Mock<IItemsRepository>();
+            var itemValidator = new ItemValidator(itemsRepository.Object);
+            var checkout = new Checkout(itemValidator);
+
+            var result = checkout.GetTotalPrice();
+
+            result.Should().Be(0);
+        }
     }
 }
