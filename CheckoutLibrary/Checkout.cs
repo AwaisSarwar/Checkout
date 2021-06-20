@@ -24,7 +24,7 @@ namespace CheckoutLibrary
 
         public decimal GetTotalPrice()
         {
-            return _basketItems.Sum(_ => _.UnitPrice * _.Qty);
+            return _basketItems.Sum(_ => _.GetPrice());
         }
 
         public void Scan(string item)

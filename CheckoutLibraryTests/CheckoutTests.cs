@@ -121,5 +121,71 @@ namespace CheckoutLibraryTests
 
             result.Should().Be(2);
         }
+
+        [TestMethod]
+        public void GetTotalPrice_WhenTheresASpecialPriceIsApplicableOnBasketItem_Then_CorrectTotalIsReturned()
+        {
+            var itemsRepository = new Mock<IItemsRepository>();
+            var itemValidator = new ItemValidator(itemsRepository.Object);
+            var checkout = new Checkout(itemValidator);
+
+            var basketItem = new BasketItem
+            {
+                Sku = "ValidItem",
+                UnitPrice = 3.0M,
+                Qty = 3,
+                SpecialPrice = "3 for 2"
+            };
+
+            checkout.BasketItems.Add(basketItem);
+
+            var result = checkout.GetTotalPrice();
+
+            result.Should().Be(2);
+        }
+
+        [TestMethod]
+        public void GetTotalPrice_WhenQtyIsMoreThanSpecialPricePromotion_Then_TotalIsSpecialPricePlusRemainingItemsInfull()
+        {
+            var itemsRepository = new Mock<IItemsRepository>();
+            var itemValidator = new ItemValidator(itemsRepository.Object);
+            var checkout = new Checkout(itemValidator);
+
+            var basketItem = new BasketItem
+            {
+                Sku = "ValidItem",
+                UnitPrice = 3.0M,
+                Qty = 4,
+                SpecialPrice = "3 for 2"
+            };
+
+            checkout.BasketItems.Add(basketItem);
+
+            var result = checkout.GetTotalPrice();
+
+            result.Should().Be(5);
+        }
+
+        [TestMethod]
+        public void GetTotalPrice_WhenQtyIsMoreThanTwiceTheSpecialPricePromotion_Then_SpecialPriceIsAppliedTwice()
+        {
+            var itemsRepository = new Mock<IItemsRepository>();
+            var itemValidator = new ItemValidator(itemsRepository.Object);
+            var checkout = new Checkout(itemValidator);
+
+            var basketItem = new BasketItem
+            {
+                Sku = "ValidItem",
+                UnitPrice = 3.0M,
+                Qty = 7,
+                SpecialPrice = "3 for 2"
+            };
+
+            checkout.BasketItems.Add(basketItem);
+
+            var result = checkout.GetTotalPrice();
+
+            result.Should().Be(7);
+        }
     }
 }
