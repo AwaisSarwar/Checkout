@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckoutLibrary", "Checkout
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckoutLibraryTests", "CheckoutLibraryTests\CheckoutLibraryTests.csproj", "{4D0E65E3-9BC0-4C1D-A32B-CAE7A948130A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckoutRepositories", "CheckoutRepositories\CheckoutRepositories.csproj", "{982DA040-D1E2-4706-ADE8-9F51C90363EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4D0E65E3-9BC0-4C1D-A32B-CAE7A948130A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D0E65E3-9BC0-4C1D-A32B-CAE7A948130A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D0E65E3-9BC0-4C1D-A32B-CAE7A948130A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{982DA040-D1E2-4706-ADE8-9F51C90363EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{982DA040-D1E2-4706-ADE8-9F51C90363EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{982DA040-D1E2-4706-ADE8-9F51C90363EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{982DA040-D1E2-4706-ADE8-9F51C90363EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
