@@ -22,9 +22,9 @@ namespace CheckoutLibrary
             this._itemValidator = itemsRepository;
         }
 
-        public int GetTotalPrice()
+        public decimal GetTotalPrice()
         {
-            return 0;
+            return _basketItems.Sum(_ => _.UnitPrice * _.Qty);
         }
 
         public void Scan(string item)

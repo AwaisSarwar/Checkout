@@ -99,5 +99,27 @@ namespace CheckoutLibraryTests
 
             result.Should().Be(0);
         }
+
+        [TestMethod]
+        public void GetTotalPrice_WhenTheresASingleBasketItem_Then_UnitPriceTimesQuantityIsReturned()
+        {
+            var itemsRepository = new Mock<IItemsRepository>();
+            var itemValidator = new ItemValidator(itemsRepository.Object);
+            var checkout = new Checkout(itemValidator);
+
+            var basketItem = new BasketItem
+            {
+                Sku = "ValidItem",
+                UnitPrice = 1.0M,
+                Qty = 2,
+                SpecialPrice = "3 for 2"
+            };
+
+            checkout.BasketItems.Add(basketItem);
+
+            var result = checkout.GetTotalPrice();
+
+            result.Should().Be(2);
+        }
     }
 }
