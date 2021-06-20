@@ -6,6 +6,7 @@ using FluentAssertions;
 using System;
 using CheckoutLibrary.Constants;
 using CheckoutLibrary.Exceptions;
+using CheckoutLibrary.Validators;
 
 namespace CheckoutLibraryTests
 {
@@ -16,7 +17,8 @@ namespace CheckoutLibraryTests
         public void Scan_When_InvalidItemIsScanned_Then_UnknownItemExceptionIsThrownWithExpectedMessage()
         {
             var itemsRepository = new Mock<IItemsRepository>();
-            var checkout = new Checkout(itemsRepository.Object);
+            var itemValidator = new ItemValidator(itemsRepository.Object);
+            var checkout = new Checkout(itemValidator);
 
             itemsRepository.Setup(_ => _.GetItemBySKU("InvalidItem")).Returns((Item)null).Verifiable();
 

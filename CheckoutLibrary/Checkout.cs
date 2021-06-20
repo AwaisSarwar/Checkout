@@ -1,5 +1,6 @@
 ﻿using CheckoutLibrary.Constants;
 using CheckoutLibrary.Exceptions;
+using CheckoutLibrary.Validators;
 using CheckoutRepositories.Items;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,11 @@ namespace CheckoutLibrary
 {
     public class Checkout : ICheckout
     {
-        private readonly IItemsRepository _itemsRepository;
+        private readonly IItemValidator _itemValidator;
 
-        public Checkout(IItemsRepository itemsRepository)
+        public Checkout(IItemValidator itemsRepository)
         {
-            this._itemsRepository = itemsRepository;
+            this._itemValidator = itemsRepository;
         }
 
         public int GetTotalPrice()
@@ -23,9 +24,7 @@ namespace CheckoutLibrary
 
         public void Scan(string item)
         {
-            var repositoryItem = _itemsRepository.GetItemBySKU(item);
-            if (repositoryItem == null)
-                throw new UnknownItemException(CheckoutConstants.InvalidItemMessage);
+            var repositoryItem = _itemValidator.ValidateItem(item);
         }
     }
 }
